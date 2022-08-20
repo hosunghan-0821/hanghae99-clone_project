@@ -30,7 +30,7 @@ public class Product extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String category; //문방 /리빙
 
     @ManyToOne
@@ -38,7 +38,8 @@ public class Product extends Timestamped {
     private User user;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY, cascade =CascadeType.REMOVE)
-    private List<Image> imageList = new ArrayList<>();
+    @Column(nullable = true)
+    private List<Image> imageUrlList = new ArrayList<>();
 
     public void update(ProductRequestDto requestDto){
         this.title = requestDto.getTitle();
