@@ -2,6 +2,8 @@ package com.hanghae.clone_project.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="users")
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
