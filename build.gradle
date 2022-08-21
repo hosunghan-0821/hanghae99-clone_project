@@ -29,8 +29,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
-
-
 	//JWT
 	implementation 'com.auth0:java-jwt:3.19.2'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
@@ -38,6 +36,10 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	compileOnly 'com.auth0:java-jwt:3.19.2'
+
+	//aws 접근
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 }
 
 tasks.named('test') {

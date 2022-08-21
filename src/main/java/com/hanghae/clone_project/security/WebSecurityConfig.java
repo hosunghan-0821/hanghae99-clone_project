@@ -109,6 +109,7 @@ public class WebSecurityConfig {
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration));
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/login");
+
         jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         jwtAuthenticationFilter.afterPropertiesSet();
