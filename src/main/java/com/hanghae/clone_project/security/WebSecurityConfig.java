@@ -6,8 +6,8 @@ import com.hanghae.clone_project.security.filter.JwtAuthorizationFilter;
 import com.hanghae.clone_project.security.filter.JwtAuthenticationFilter;
 import com.hanghae.clone_project.security.handler.AccessDeniedHandler;
 import com.hanghae.clone_project.security.handler.AuthenticationFailHandler;
-import com.hanghae.clone_project.security.handler.FormLoginFailureHandler;
-import com.hanghae.clone_project.security.handler.FormLoginSuccessHandler;
+import com.hanghae.clone_project.security.handler.AuthenticationFailureHandler;
+import com.hanghae.clone_project.security.handler.AuthenticationSuccessHandler;
 import com.hanghae.clone_project.security.jwt.HeaderTokenExtractor;
 import com.hanghae.clone_project.security.provider.JwtAuthenticationProvider;
 import com.hanghae.clone_project.security.provider.JwtAuthorizationProvider;
@@ -41,10 +41,10 @@ public class WebSecurityConfig {
     private final JwtAuthorizationProvider jwtAuthorizationProvider;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final HeaderTokenExtractor headerTokenExtractor;
-    private final FormLoginSuccessHandler formLoginSuccessHandler;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
 
-    private final FormLoginFailureHandler formLoginFailureHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     private final AccessDeniedHandler accessDeniedHandler;
 
@@ -81,8 +81,8 @@ public class WebSecurityConfig {
         http.cors().configurationSource(corsConfigurationSource());
 
         http
-                .addFilterBefore(formLoginFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http
                 .sessionManagement()
@@ -106,18 +106,18 @@ public class WebSecurityConfig {
 
     //사용하는 필터 만들기
     @Bean
-    public JwtAuthenticationFilter formLoginFilter() throws Exception {
+    public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration));
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/login");
-        jwtAuthenticationFilter.setAuthenticationFailureHandler(formLoginFailureHandler);
-        jwtAuthenticationFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler);
+        jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         jwtAuthenticationFilter.afterPropertiesSet();
 
         return jwtAuthenticationFilter;
     }
 
     //사용하는 필터 만들기
-    private JwtAuthorizationFilter jwtFilter() throws Exception {
+    private JwtAuthorizationFilter jwtAuthorizationFilter() throws Exception {
 
         List<String> skipPathList = new ArrayList<>();
 

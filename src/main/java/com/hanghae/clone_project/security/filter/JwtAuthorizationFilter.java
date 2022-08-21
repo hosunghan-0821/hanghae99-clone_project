@@ -6,6 +6,7 @@ import com.hanghae.clone_project.security.jwt.HeaderTokenExtractor;
 import com.hanghae.clone_project.security.jwt.JwtPreProcessingToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -36,7 +37,7 @@ public class JwtAuthorizationFilter extends AbstractAuthenticationProcessingFilt
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
-        log.debug("JWT_FILTER : attemptAutentication () 실행 ");
+        log.info("JWT_FILTER : attemptAutentication () 실행 ");
 
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
@@ -45,7 +46,8 @@ public class JwtAuthorizationFilter extends AbstractAuthenticationProcessingFilt
             throw new AuthenticationCredentialsNotFoundException("토큰이 존재하지 않습니다");
         }
 
-        JwtPreProcessingToken jwtToken = new JwtPreProcessingToken(extractor.extract(tokenPayload));
+        UsernamePasswordAuthenticationToken jwtToken = new UsernamePasswordAuthenticationToken(extractor.extract(tokenPayload),null);
+//        JwtPreProcessingToken jwtToken = new JwtPreProcessingToken(extractor.extract(tokenPayload));
 
         return super
                 .getAuthenticationManager()
