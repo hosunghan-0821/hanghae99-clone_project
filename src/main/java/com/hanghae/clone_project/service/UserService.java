@@ -3,6 +3,7 @@ package com.hanghae.clone_project.service;
 import com.hanghae.clone_project.dto.requestDto.SignupDto;
 import com.hanghae.clone_project.entity.User;
 import com.hanghae.clone_project.repository.UserRepository;
+import com.hanghae.clone_project.validation.SignupValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,15 +18,17 @@ public class UserService {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
+    private final SignupValidator signupValidator;
 
     public void registerUser(SignupDto signupDto){
-        User userInfo = User.builder()
-                .username(signupDto.getUsername())
-                .password(passwordEncoder.encode(signupDto.getPassword()))
-                .email(signupDto.getEmail())
-                .birthday(signupDto.getBirthday())
-                .build();
 
+        //유효성 검사.
+        signupValidator.checkUserInfoValidation(signupDto);
+
+        //User
+        User userInfo = User.of(signupDto,passwordEncoder);
+
+        //
         userRepository.save(userInfo);
     }
 

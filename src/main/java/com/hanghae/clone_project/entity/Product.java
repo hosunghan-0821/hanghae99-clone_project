@@ -38,7 +38,7 @@ public class Product extends Timestamped {
     private User user;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY, cascade =CascadeType.REMOVE)
-    @Column(nullable = true)
+    @Column
     private List<Image> imageUrlList = new ArrayList<>();
 
     public void update(ProductRequestDto requestDto){

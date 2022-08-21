@@ -125,9 +125,9 @@ public class WebSecurityConfig {
         // 회원 관리 API SKIP 적용
         skipPathList.add("POST,/api/v1/signup");
 
-        // Post 게시글 관련
-        skipPathList.add("GET,/api/v1/posts/**");
-
+        // 메인페이지 조회
+        skipPathList.add("GET,/api/v1/products");
+        skipPathList.add("GET,/api/v1/products/mainitems");
         //기본 페이지 설정
         skipPathList.add("GET,/");
         skipPathList.add("GET,/favicon.ico");
