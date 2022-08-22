@@ -39,7 +39,7 @@ public class Product extends Timestamped {
 
     @Builder.Default
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY, cascade =CascadeType.REMOVE)
-    @Column(nullable = true)
+    @Column
     private List<Image> imageUrlList = new ArrayList<>();
 
     @Builder.Default

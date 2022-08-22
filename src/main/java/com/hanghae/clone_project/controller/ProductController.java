@@ -50,4 +50,10 @@ public class ProductController {
         return productService.deleteProduct(productId);
     }
 
+
+    @GetMapping("/products/mainitems")
+    public ResponseEntity<?> getMainItems(){
+        return productService.getMainItems();
+    }
+
 }

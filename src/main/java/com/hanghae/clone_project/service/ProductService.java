@@ -4,6 +4,7 @@ import com.hanghae.clone_project.dto.request.ProductRequestDto;
 import com.hanghae.clone_project.dto.response.ImagesResponseDto;
 import com.hanghae.clone_project.dto.response.ProductResponseDto;
 import com.hanghae.clone_project.dto.response.ProductsResponseDto;
+import com.hanghae.clone_project.dto.responseDto.ResponseDto;
 import com.hanghae.clone_project.entity.Image;
 import com.hanghae.clone_project.entity.Product;
 import com.hanghae.clone_project.repository.ImageRepository;
@@ -65,6 +66,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<ProductsResponseDto> getAllProduct() {
 
+
         List<Product> products = productRepository.findByOrderByCreatedAtDesc();
         List<ProductsResponseDto> productList = new ArrayList<>();
 
@@ -87,6 +89,17 @@ public class ProductService {
 
         return productList;
     }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<?> getMainItems(){
+        List<Product> products = productRepository.findTop6ByOrderByIdAsc();
+        List<ProductsResponseDto> responseDtos = new ArrayList<>();
+        for(Product product: products){
+            responseDtos.add(ProductsResponseDto.of(product));
+        }
+        return new ResponseEntity<>(ResponseDto.success(responseDtos),HttpStatus.OK);
+    }
+
 
     //상품 상세조회
     public ProductResponseDto getProduct(Long productId) {
