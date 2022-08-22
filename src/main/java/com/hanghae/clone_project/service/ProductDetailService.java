@@ -1,9 +1,7 @@
 package com.hanghae.clone_project.service;
 
-import com.hanghae.clone_project.dto.response.ImagesResponseDto;
 import com.hanghae.clone_project.dto.response.productDatail.ApiResponseMessage;
 import com.hanghae.clone_project.dto.response.productDatail.ResponseDto;
-import com.hanghae.clone_project.dto.response.productDatail.ProductDetailImageResponseDto;
 import com.hanghae.clone_project.dto.response.productDatail.ProductDetailResponseDto;
 import com.hanghae.clone_project.entity.Image;
 import com.hanghae.clone_project.entity.ProductDetail;
