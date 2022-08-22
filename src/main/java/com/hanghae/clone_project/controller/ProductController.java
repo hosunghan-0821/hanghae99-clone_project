@@ -21,8 +21,9 @@ public class ProductController {
     //상품 등록
     @PostMapping("/products")
     public ResponseEntity<?> createProduct(@RequestPart ProductRequestDto requestDto,
-                                           @RequestPart(required = false) List<MultipartFile> multipartFile){
-        return productService.createProduct(requestDto, multipartFile);
+                                           @RequestPart(required = false) List<MultipartFile> mainMultipartFile,
+                                           @RequestPart(required = false) List<MultipartFile> detailMultipartFile){
+        return productService.createProduct(requestDto, mainMultipartFile, detailMultipartFile);
     }
 
     //상품 전체조회
