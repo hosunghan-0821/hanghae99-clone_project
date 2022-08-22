@@ -83,7 +83,7 @@ public class ProductService {
                             .title(product.getTitle())
                             .price(product.getPrice())
                             .category(product.getCategory())
-                            .imageUrl(imageUrlList)
+                           // .imageUrl(imageUrlList)
                             .build());
         }
 
