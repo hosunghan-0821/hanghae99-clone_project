@@ -6,6 +6,7 @@ import com.hanghae.clone_project.dto.response.ProductResponseDto;
 import com.hanghae.clone_project.dto.response.ProductsResponseDto;
 import com.hanghae.clone_project.entity.Image;
 import com.hanghae.clone_project.entity.Product;
+import com.hanghae.clone_project.exception.CustomException;
 import com.hanghae.clone_project.repository.ImageRepository;
 import com.hanghae.clone_project.repository.ProductRepository;
 import com.hanghae.clone_project.s3.AwsS3Service;
