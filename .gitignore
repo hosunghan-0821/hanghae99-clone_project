@@ -1,5 +1,6 @@
-#application.properties
+application.properties
 application.yml
+aws.yml
 HELP.md
 .gradle
 build/
