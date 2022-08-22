@@ -4,6 +4,7 @@ import com.hanghae.clone_project.dto.request.ProductRequestDto;
 import com.hanghae.clone_project.dto.response.ImagesResponseDto;
 import com.hanghae.clone_project.dto.response.ProductResponseDto;
 import com.hanghae.clone_project.dto.response.ProductsResponseDto;
+import com.hanghae.clone_project.dto.response.ResponseDto;
 import com.hanghae.clone_project.dto.responseDto.ResponseDto;
 import com.hanghae.clone_project.entity.Image;
 import com.hanghae.clone_project.entity.Product;
