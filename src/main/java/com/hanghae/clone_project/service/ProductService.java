@@ -1,12 +1,10 @@
 package com.hanghae.clone_project.service;
 
 import com.hanghae.clone_project.dto.request.ProductRequestDto;
-import com.hanghae.clone_project.dto.response.ImagesResponseDto;
 import com.hanghae.clone_project.dto.response.ProductResponseDto;
 import com.hanghae.clone_project.dto.response.ProductsResponseDto;
 import com.hanghae.clone_project.entity.Image;
 import com.hanghae.clone_project.entity.Product;
-import com.hanghae.clone_project.exception.CustomException;
 import com.hanghae.clone_project.repository.ImageRepository;
 import com.hanghae.clone_project.repository.ProductRepository;
 import com.hanghae.clone_project.s3.AwsS3Service;
@@ -71,11 +69,13 @@ public class ProductService {
 
         for (Product product : products){
             List<Image> imageUrls = imageRepository.findAllByProduct(product);
-            List<ImagesResponseDto> imageUrlList = new ArrayList<>();
+            List<String> imageUrlList = new ArrayList<>();
+//            List<ImagesResponseDto> imageUrlList = new ArrayList<>();
 
             for (Image imageUrl : imageUrls){
-                ImagesResponseDto imagesResponseDto = new ImagesResponseDto(imageUrl);
-                imageUrlList.add(imagesResponseDto);
+//                ImagesResponseDto imagesResponseDto = new ImagesResponseDto(imageUrl);
+                String imageUrl1 = imageUrl.getImageUrl();
+                imageUrlList.add(imageUrl1);
             }
             productList.add(ProductsResponseDto.builder()
                             .productId(product.getId())
@@ -97,11 +97,13 @@ public class ProductService {
         );
 
         List<Image> imageUrls = imageRepository.findAllByProduct(product);
-        List<ImagesResponseDto> imageUrlList = new ArrayList<>();
+        List<String> imageUrlList = new ArrayList<>();
+//        List<ImagesResponseDto> imageUrlList = new ArrayList<>();
 
         for (Image imageUrl : imageUrls){
-            ImagesResponseDto imagesResponseDto = new ImagesResponseDto(imageUrl);
-            imageUrlList.add(imagesResponseDto);
+//            ImagesResponseDto imagesResponseDto = new ImagesResponseDto(imageUrl);
+            String imageUrl1 = imageUrl.getImageUrl();
+            imageUrlList.add(imageUrl1);
         }
 
         return ProductResponseDto.builder()

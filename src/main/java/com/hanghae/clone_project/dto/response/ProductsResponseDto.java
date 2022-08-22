@@ -17,7 +17,7 @@ public class ProductsResponseDto {
     private String title;
     private String price;
     private String category;
-    private List<ImagesResponseDto> imageUrl = new ArrayList<>();
+    private List<String> imageUrl = new ArrayList<>();
 
 //    public ProductsResponseDto(Product product) {
 //        this.productId = product.getId();
