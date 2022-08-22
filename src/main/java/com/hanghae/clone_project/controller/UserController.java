@@ -22,8 +22,4 @@ public class UserController {
         userService.registerUser(signupDto);
     }
 
-    @GetMapping("/api/v1/hello")// URL
-    public ResponseEntity<ResponseDto<?>> hello(){
-        return  new ResponseEntity<>(ResponseDto.success("성공"), HttpStatus.OK);
-    }
 }
