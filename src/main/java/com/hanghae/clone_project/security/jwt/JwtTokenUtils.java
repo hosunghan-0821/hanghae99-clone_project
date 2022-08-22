@@ -3,9 +3,12 @@ package com.hanghae.clone_project.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.hanghae.clone_project.security.UserDetailsImpl;
+import org.springframework.beans.factory.annotation.Value;
 
 
 import java.util.Date;
+
+import static com.hanghae.clone_project.security.jwt.JwtDecoder.JWT_SECRET;
 
 
 public final class JwtTokenUtils {
@@ -27,14 +30,13 @@ public final class JwtTokenUtils {
     public static final String CLAIM_USER_NAME = "USER_NAME";
 
 
-    public static final String JWT_SECRET = "jwt_secret_!@#$%";
 
     public static String generateJwtToken(UserDetailsImpl userDetails){
         String token = null;
 
         try{
             token= JWT.create()
-                    .withIssuer("RECRUIT_PAGE")
+                    .withIssuer("ISS")
                     .withClaim(CLAIM_USER_NAME,userDetails.getUsername())
                     .withClaim(CLAIM_EXPIRED_DATE,new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
                     .sign(generateAlgorithm());

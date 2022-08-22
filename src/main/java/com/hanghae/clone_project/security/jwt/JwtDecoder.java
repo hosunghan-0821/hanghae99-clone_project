@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,12 @@ import static com.hanghae.clone_project.security.jwt.JwtTokenUtils.*;
 @Component
 public class JwtDecoder {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public static String JWT_SECRET;
+    @Autowired
+    public JwtDecoder(@Value("${jwt.secret-key}") String JWT_SECRET){
+        this.JWT_SECRET = JWT_SECRET;
+    }
 
     public String decodeUsername(String token){
         DecodedJWT decodedJWT = isValidToken(token).orElseThrow(()->new AuthenticationServiceException("토큰이 유효하지 않습니다"));
