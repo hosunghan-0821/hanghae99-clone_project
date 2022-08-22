@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class AwsS3Service {
-    @Value("imagescollect")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
     private final AmazonS3 amazonS3;
@@ -31,15 +31,20 @@ public class AwsS3Service {
 
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
         multipartFile.forEach(file -> {
+            //나이키 신발.png/0ed130bc-80f6-4359-830d-b112a9f45858.png
+            //s3 이름 : 0ed130bc-80f6-4359-830d-b112a9f45858.png
+            //실제 url : https://jack-image.s3.ap-northeast-2.amazonaws.com/%EB%82%98%EC%9D%B4%ED%82%A4+%EC%8B%A0%EB%B0%9C.png/0ed130bc-80f6-4359-830d-b112a9f45858.png
+            //dirname 예시 : String imageUrl = s3LoadService.upload(requestDto.getFile(), "static")
             String fileName = file.getOriginalFilename() + "/" + createFileName(file.getOriginalFilename());
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(file.getSize());
             objectMetadata.setContentType(file.getContentType());
 
+
             try(InputStream inputStream = file.getInputStream()) {
                 amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                        //버킷에 객체를 추가하는 메서드다.  매개변수 두 개를 받는데, 받는 값에 따라 2개로 나뉜다.
                         .withCannedAcl(CannedAccessControlList.PublicRead));
-
             } catch(IOException e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
             }
