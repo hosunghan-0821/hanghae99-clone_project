@@ -1,4 +1,4 @@
-package com.hanghae.mini_project.exception.response;
+package com.hanghae.clone_project.exception.response;
 
 import lombok.Builder;
 import lombok.Getter;

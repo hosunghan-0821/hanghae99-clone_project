@@ -1,4 +1,4 @@
-package com.hanghae.mini_project.exception.ErrorCode;
+package com.hanghae.clone_project.exception.ErrorCode;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
