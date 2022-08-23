@@ -85,9 +85,15 @@ public class ProductService {
         }
 
     @Transactional(readOnly = true)
-    public List<ProductsResponseDto> readAllProduct() {
+    public List<ProductsResponseDto> readAllProduct(String category) {
+        List<Product> products;
+        if(category==null){
+            products = productRepository.findByOrderByCreatedAtDesc();
+        }
+        else{
+            products=productRepository.findByCategoryOrderByCreatedAtDesc(category);
+        }
 
-        List<Product> products = productRepository.findByOrderByCreatedAtDesc();
         List<ProductsResponseDto> productList = new ArrayList<>();
 
         for (Product product : products){

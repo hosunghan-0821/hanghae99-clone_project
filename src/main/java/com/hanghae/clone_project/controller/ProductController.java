@@ -32,13 +32,14 @@ public class ProductController {
 
     //상품 전체조회
     @GetMapping("/products")
-    public ResponseEntity<List<ProductsResponseDto>> readAllProduct(){
+    public ResponseEntity<List<ProductsResponseDto>> readAllProduct(@RequestParam(required = false) String category){
 
-        List<ProductsResponseDto> responseDtos = productService.readAllProduct();
+        List<ProductsResponseDto> responseDtos = productService.readAllProduct(category);
 
         return ResponseEntity.ok()
                 .body(responseDtos);
     }
+
 
     //상품 상세조회
     @GetMapping("/products/{productId}")

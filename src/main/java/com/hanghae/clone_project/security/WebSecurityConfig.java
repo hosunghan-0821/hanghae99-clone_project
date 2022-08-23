@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
 public class WebSecurityConfig {
@@ -130,7 +130,7 @@ public class WebSecurityConfig {
         skipPathList.add("GET,/user/kakao/callback/**");
 
         // 각 기능의 조회
-        skipPathList.add("GET,/api/v1/products");
+        skipPathList.add("GET,/api/v1/products/**");
         skipPathList.add("GET,/api/v1/products/mainitems");
         skipPathList.add("GET,/api/v1/review/**");
 
