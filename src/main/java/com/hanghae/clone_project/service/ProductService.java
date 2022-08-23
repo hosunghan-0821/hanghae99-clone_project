@@ -9,6 +9,7 @@ import com.hanghae.clone_project.entity.Product;
 import com.hanghae.clone_project.repository.ImageRepository;
 import com.hanghae.clone_project.repository.ProductRepository;
 import com.hanghae.clone_project.s3.AwsS3Service;
+import com.hanghae.clone_project.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,8 @@ public class ProductService {
     @Transactional
     public ResponseEntity<?> createProduct(ProductRequestDto requestDto,
                                            List<MultipartFile> mainMultipartFile,
-                                           List<MultipartFile> detailMultipartFile) {
+                                           List<MultipartFile> detailMultipartFile,
+                                           UserDetailsImpl userDetails) {
 
 //        main image를 url형태로 DB에 저장
         List<String> mainImageUrls = awsS3Service.uploadFile(mainMultipartFile);
@@ -58,6 +60,7 @@ public class ProductService {
                     .category(requestDto.getCategory())
                     .imageUrlList(mainImageList)
                     .imageUrlList(detailImageList)
+                    .user(userDetails.getUser())
                     .build();
 
             productRepository.save(product);
@@ -82,8 +85,7 @@ public class ProductService {
         }
 
     @Transactional(readOnly = true)
-    public List<ProductsResponseDto> getAllProduct() {
-
+    public List<ProductsResponseDto> readAllProduct() {
 
         List<Product> products = productRepository.findByOrderByCreatedAtDesc();
         List<ProductsResponseDto> productList = new ArrayList<>();
@@ -121,7 +123,7 @@ public class ProductService {
 
 
     //상품 상세조회
-    public ProductResponseDto getProduct(Long productId) {
+    public ProductResponseDto readProduct(Long productId) {
 
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> new IllegalArgumentException("해당 상품이 존재하지 않습니다.")
@@ -155,13 +157,19 @@ public class ProductService {
     }
 
     @Transactional
-    public ResponseEntity<?> updateProduct(Long productId, ProductRequestDto requestDto) {
+    public ResponseEntity<?> updateProduct(Long productId,
+                                           ProductRequestDto requestDto,
+                                           UserDetailsImpl userDetails) {
 
         if (!productRepository.findById(productId).isPresent()){
             return new ResponseEntity<>("해당 상품이 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
 
         Product product = productRepository.findById(productId).get();
+
+        if (!product.getUser().getUsername().equals(userDetails.getUser().getUsername())){
+            return new ResponseEntity<>("상품등록자만 수정할 수 있습니다.", HttpStatus.UNAUTHORIZED);
+        }
         product.update(requestDto);
 
         return new ResponseEntity<>("상품이 수정되었습니다.", HttpStatus.OK);
