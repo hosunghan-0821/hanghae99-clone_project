@@ -1,5 +1,6 @@
 package com.hanghae.clone_project.dto.response;
 
+import com.hanghae.clone_project.entity.Image;
 import com.hanghae.clone_project.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +31,7 @@ public class ProductsResponseDto {
                .title(product.getTitle())
                .imageUrl(product.getImageUrlList()
                        .stream()
-                       .map(v->v.getImageUrl())
+                       .map(Image::getImageUrl)
                        .collect(Collectors.toList()))
                .build();
     }
