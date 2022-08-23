@@ -45,7 +45,6 @@ public class AwsS3Service {
                 amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                         //버킷에 객체를 추가하는 메서드다.  매개변수 두 개를 받는데, 받는 값에 따라 2개로 나뉜다.
                         .withCannedAcl(CannedAccessControlList.PublicRead));
-                //.getUrl(bucket)
             } catch(IOException e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
             }

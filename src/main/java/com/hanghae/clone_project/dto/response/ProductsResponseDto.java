@@ -20,7 +20,7 @@ public class ProductsResponseDto {
     private String title;
     private String price;
     private String category;
-    private List<String> imageUrl;
+    private List<String> mainImageUrl;
 
 
 
@@ -29,7 +29,7 @@ public class ProductsResponseDto {
        return ProductsResponseDto.builder()
                .productId(product.getId())
                .title(product.getTitle())
-               .imageUrl(product.getImageUrlList()
+               .mainImageUrl(product.getImageUrlList()
                        .stream()
                        .map(Image::getImageUrl)
                        .collect(Collectors.toList()))
