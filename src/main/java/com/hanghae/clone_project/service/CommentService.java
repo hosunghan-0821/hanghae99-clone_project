@@ -3,8 +3,10 @@ package com.hanghae.clone_project.service;
 import com.hanghae.clone_project.dto.request.CommentRequestDto;
 import com.hanghae.clone_project.dto.response.CommentResponseDto;
 import com.hanghae.clone_project.entity.Comment;
+import com.hanghae.clone_project.entity.Product;
 import com.hanghae.clone_project.entity.User;
 import com.hanghae.clone_project.repository.CommentRepository;
+import com.hanghae.clone_project.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,23 +20,22 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
+    private final ProductRepository productRepository;
+
     // 리뷰 생성
     @Transactional
-    public CommentResponseDto<?> createComment(CommentRequestDto commentRequestDto, User user){
-        Comment comment = new Comment(commentRequestDto,user);
+    public CommentResponseDto<?> createComment(CommentRequestDto commentRequestDto, User user,Long id){
+        Product product = productRepository.findById(id).orElseThrow(()->new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+        Comment comment = new Comment(commentRequestDto,user,product);
         commentRepository.save(comment);
-        return CommentResponseDto.success(comment);
+        return CommentResponseDto.success("");
     }
     //리뷰 수정
     @Transactional
     public CommentResponseDto<?> updateComment(CommentRequestDto commentRequestDto, Long id, User user){
-        Optional<Comment> optionalComment = commentRepository.findById(id);
-        if(optionalComment.isEmpty()){
-            return CommentResponseDto.fail("NULL_POST_ID","post id isn't exist");
-        }
-        Comment comment = optionalComment.get();
-        comment.update(commentRequestDto,user);
-        return CommentResponseDto.success(comment);
+        Comment comment = commentRepository.findById(id).orElseThrow(()->new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+        comment.update(commentRequestDto);
+        return CommentResponseDto.success("");
     }
 
     //리뷰 삭제
@@ -46,7 +47,7 @@ public class CommentService {
         }
         Comment comment = optionalComment.get();
         commentRepository.delete(comment);
-        return CommentResponseDto.success(true);
+        return CommentResponseDto.success("");
 
     }
 }

@@ -22,21 +22,22 @@ public class CommentController {
     //리뷰생성
     @PostMapping("/api/v1/review/{productId}")
     public CommentResponseDto<?> createComment(@RequestBody CommentRequestDto commentRequestDto,
+                                               @PathVariable Long productId,
                                                @AuthenticationPrincipal UserDetailsImpl userDetails){
-
-        return commentService.createComment(commentRequestDto ,userDetails.getUser());
+        return commentService.createComment(commentRequestDto,userDetails.getUser(),productId);
     }
 
     //리뷰수정
-    @PutMapping("/api/vi/review/{productId}")
+    @PutMapping("/api/v1/review/{commentId}")
     public CommentResponseDto<?> updateComment(@RequestBody CommentRequestDto commentRequestDto,
-                                               @PathVariable Long id,
+                                               @PathVariable Long commentId,
                                                @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return commentService.updateComment(commentRequestDto,id,userDetails.getUser());
+        System.out.println("rororo");
+        return commentService.updateComment(commentRequestDto,commentId,userDetails.getUser());
     }
     //리뷰삭제
-    @DeleteMapping("/api/v1/review/{productId}")
-    public CommentResponseDto<?> deleteComment(@PathVariable Long id){
-        return commentService.deleteComment(id);
+    @DeleteMapping("/api/v1/review/{commentId}")
+    public CommentResponseDto<?> deleteComment(@PathVariable Long commentId){
+        return commentService.deleteComment(commentId);
     }
 }

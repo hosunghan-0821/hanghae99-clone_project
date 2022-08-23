@@ -32,14 +32,15 @@ public class Comment {
     @JoinColumn(name = "users")
     private User user;
 
-    public Comment(CommentRequestDto commentRequestDto,User user) {
+    public Comment(CommentRequestDto commentRequestDto,User user,Product product) {
         this.content = commentRequestDto.getContent();
         this.user = user;
+        this.product = product;
     }//같은자료형
 
-    public void update(CommentRequestDto commentRequestDto,User user){
+    public void update(CommentRequestDto commentRequestDto){
         this.content = commentRequestDto.getContent();
-        this.user = user;
 
     }
+
 }
