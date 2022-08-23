@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -18,12 +17,7 @@ public class ProductResponseDto {
     private String price;
     private String content;
     private String category;
-    private List<ImagesResponseDto> imageUrl;
-//    public ProductResponseDto(Product product) {
-//        this.productId = product.getId();
-//        this.title = product.getTitle();
-//        this.price = product.getPrice();
-//        this.content = product.getContent();
-//        this.category = product.getCategory();
-//    }
+    private List<String> mainImageUrl;
+    private List<String> detailImageUrl;
+
 }
