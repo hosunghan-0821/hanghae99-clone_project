@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-public class AuthenticationFailHandler implements AuthenticationFailureHandler {
+public class AuthorizationFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         log.error("인증실패");

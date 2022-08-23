@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class Comment extends Timestamped{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,8 +21,6 @@ public class Comment {
 
     @Column(nullable = false)
     private String content;
-
-
 
     @ManyToOne
     @JoinColumn(name = "product")
