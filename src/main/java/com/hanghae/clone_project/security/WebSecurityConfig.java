@@ -5,7 +5,7 @@ package com.hanghae.clone_project.security;
 import com.hanghae.clone_project.security.filter.JwtAuthorizationFilter;
 import com.hanghae.clone_project.security.filter.JwtAuthenticationFilter;
 import com.hanghae.clone_project.security.handler.AccessDeniedHandler;
-import com.hanghae.clone_project.security.handler.AuthenticationFailHandler;
+import com.hanghae.clone_project.security.handler.AuthorizationFailureHandler;
 import com.hanghae.clone_project.security.handler.AuthenticationFailureHandler;
 import com.hanghae.clone_project.security.handler.AuthenticationSuccessHandler;
 import com.hanghae.clone_project.security.jwt.HeaderTokenExtractor;
@@ -43,12 +43,11 @@ public class WebSecurityConfig {
     private final HeaderTokenExtractor headerTokenExtractor;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
-
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
     private final AccessDeniedHandler accessDeniedHandler;
 
-    private final AuthenticationFailHandler authenticationFailHandler;
+    private final AuthorizationFailureHandler authorizationFailureHandler;
 
 
 
@@ -67,6 +66,7 @@ public class WebSecurityConfig {
                         "/webjars/**",
                         "/swagger-resources/**",
                         "/swagger/**");
+
     }
 
     @Bean
@@ -122,12 +122,19 @@ public class WebSecurityConfig {
 
         List<String> skipPathList = new ArrayList<>();
 
+
         // 회원 관리 API SKIP 적용
         skipPathList.add("POST,/api/v1/signup");
 
-        // 메인페이지 조회
+        skipPathList.add("GET,/api/v1/kakao/signup");
+        skipPathList.add("GET,/user/kakao/callback/**");
+
+        // 각 기능의 조회
         skipPathList.add("GET,/api/v1/products");
         skipPathList.add("GET,/api/v1/products/mainitems");
+        skipPathList.add("GET,/api/v1/review/**");
+
+
         //기본 페이지 설정
         skipPathList.add("GET,/");
         skipPathList.add("GET,/favicon.ico");
@@ -135,8 +142,9 @@ public class WebSecurityConfig {
         FilterSkipMatcher matcher = new FilterSkipMatcher(skipPathList, "/**");
         JwtAuthorizationFilter filter = new JwtAuthorizationFilter(headerTokenExtractor, matcher);
 
-        filter.setAuthenticationFailureHandler(authenticationFailHandler);
+        filter.setAuthenticationFailureHandler(authorizationFailureHandler);
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+
         return filter;
     }
 

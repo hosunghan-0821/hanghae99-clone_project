@@ -2,6 +2,7 @@ package com.hanghae.clone_project.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hanghae.clone_project.dto.requestDto.KakaoUserInfoDto;
 import com.hanghae.clone_project.dto.requestDto.SignupDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,8 +34,11 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String birthday;
+
+    @Column(unique = true)
+    private Long kakaoId;
 
     public static User of(SignupDto signupDto, BCryptPasswordEncoder passwordEncoder){
        return User.builder()
@@ -43,5 +47,13 @@ public class User {
                .email(signupDto.getEmail())
                .birthday(signupDto.getBirthday())
                .build();
+    }
+
+    public static User of(KakaoUserInfoDto kakaoUserInfoDto){
+        return User.builder()
+                .username(kakaoUserInfoDto.getNickname())
+                .email(kakaoUserInfoDto.getEmail())
+                .kakaoId(kakaoUserInfoDto.getId())
+                .build();
     }
 }
