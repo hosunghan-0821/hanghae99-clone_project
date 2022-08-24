@@ -3,9 +3,11 @@ package com.hanghae.clone_project.controller;
 import com.hanghae.clone_project.dto.request.ProductRequestDto;
 import com.hanghae.clone_project.dto.response.ProductResponseDto;
 import com.hanghae.clone_project.dto.response.ProductsResponseDto;
+import com.hanghae.clone_project.dto.responseDto.ResponseDto;
 import com.hanghae.clone_project.security.UserDetailsImpl;
 import com.hanghae.clone_project.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -32,23 +34,23 @@ public class ProductController {
 
     //상품 전체조회
     @GetMapping("/products")
-    public ResponseEntity<List<ProductsResponseDto>> readAllProduct(@RequestParam(required = false) String category){
+    public ResponseEntity<?> readAllProduct(@RequestParam(required = false) String category){
 
         List<ProductsResponseDto> responseDtos = productService.readAllProduct(category);
 
-        return ResponseEntity.ok()
-                .body(responseDtos);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseDto.success(responseDtos));
     }
 
 
     //상품 상세조회
     @GetMapping("/products/{productId}")
-    public ResponseEntity<ProductResponseDto> readProduct(@PathVariable Long productId){
+    public ResponseEntity<?> readProduct(@PathVariable Long productId){
 
         ProductResponseDto responseDto = productService.readProduct(productId);
 
         return ResponseEntity.ok()
-                .body(responseDto);
+                .body(ResponseDto.success(responseDto));
     }
 
     //상품 수정

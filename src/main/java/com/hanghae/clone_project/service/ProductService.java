@@ -100,6 +100,14 @@ public class ProductService {
             List<Image> mainImages = imageRepository.findAllByCategoryAndProduct("main", product);
             List<String> mainImageUrlList = new ArrayList<>();
 
+            List<Image> detailImages = imageRepository.findAllByCategoryAndProduct("detail", product);
+            List<String> detailImageUrlList = new ArrayList<>();
+
+            for (Image detailImage : detailImages){
+                String imageUrl = detailImage.getImageUrl();
+                detailImageUrlList.add(imageUrl);
+            }
+
             for (Image mainImage : mainImages){
                 String mainImageUrl = mainImage.getImageUrl();
                 mainImageUrlList.add(mainImageUrl);
@@ -110,6 +118,7 @@ public class ProductService {
                             .price(product.getPrice())
                             .category(product.getCategory())
                             .mainImageUrl(mainImageUrlList)
+                            .detailImageUrl(detailImageUrlList)
                             .build());
         }
 

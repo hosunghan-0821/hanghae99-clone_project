@@ -138,6 +138,7 @@ public class WebSecurityConfig {
         //기본 페이지 설정
         skipPathList.add("GET,/");
         skipPathList.add("GET,/favicon.ico");
+        skipPathList.add("GET,/error");
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(skipPathList, "/**");
         JwtAuthorizationFilter filter = new JwtAuthorizationFilter(headerTokenExtractor, matcher);
