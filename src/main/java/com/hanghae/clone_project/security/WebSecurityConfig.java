@@ -134,7 +134,6 @@ public class WebSecurityConfig {
         skipPathList.add("GET,/api/v1/products/mainitems");
         skipPathList.add("GET,/api/v1/review/**");
 
-
         //기본 페이지 설정
         skipPathList.add("GET,/");
         skipPathList.add("GET,/favicon.ico");

@@ -9,4 +9,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RestApiException extends  RuntimeException {
     private final Errorcode errorcode;
+    private String message;
+
+
+    public RestApiException(Errorcode errorcode, String message){
+        this.errorcode=errorcode;
+        this.message=message;
+    }
 }

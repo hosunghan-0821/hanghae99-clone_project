@@ -43,7 +43,7 @@ public class CommentController {
     }
     //리뷰삭제
     @DeleteMapping("/api/v1/review/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable Long commentId){
-        return commentService.deleteComment(commentId);
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.deleteComment(commentId,userDetails.getUser());
     }
 }
