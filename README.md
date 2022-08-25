@@ -15,7 +15,7 @@
 |이름|팀원 깃허브|포지션|
 |---|---|---|
 |이호재|https://github.com/ghwo68|Back-end|
-|한호성|.|Back-end|
+|한호성|https://github.com/hosunghan-0821|Back-end|
 |장창균|.|Back-end|
 |이재헌|.|Back-end|
 |조다솜|.|Front-end|
