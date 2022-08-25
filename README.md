@@ -53,8 +53,9 @@
 -로그인 페이지입니다.<br>
 -아이디와 비밀번호를 입력받아 로그인합니다.<br><br>
 
-#### 3.Home
+#### 3.Home/All
 ![메인페이지](https://user-images.githubusercontent.com/108935929/186649752-0bcd1b1b-0890-4089-9990-efa8cade1745.PNG)
+![전체페이지](https://user-images.githubusercontent.com/108935929/186663082-cf637621-7926-4ed6-921b-8d51943dc8a4.PNG)
 <br>
 -메인페이지입니다. 등록된 상품의 이미지와 정보가 카드 목록 형태로 메인에 노출됩니다.<br>
 -조회 부분은 로그인을 하지 않아도 누구나 볼 수 있습니다.<br><br>
